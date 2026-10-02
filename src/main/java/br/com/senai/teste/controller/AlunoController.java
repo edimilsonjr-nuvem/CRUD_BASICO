@@ -2,15 +2,22 @@ package br.com.senai.teste.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.DeleteExchange;
 import org.springframework.web.bind.annotation.RequestBody;
 import br.com.senai.teste.service.AlunoService;
 
-import org.springframework.web.bind.annotation.GetMapping
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
 import br.com.senai.teste.model.Aluno;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.lang.foreign.Linker.Option;
 import java.util.List;
 
 @RestController 
@@ -37,13 +44,41 @@ public class AlunoController {
         
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) {
-        Aluno aluno = alunoService.buscarPorId(id);
-        if (aluno != null) {
-            return ResponseEntity.ok(aluno);
-        } else {
+    public ResponseEntity<Aluno> buscarPorId(
+        @PathVariable Integer id) {
+        
+        Optional<Aluno> aluno = alunoService.buscarPorId(id.longValue());
+
+        if (aluno.isPresent()) {
+            return ResponseEntity.ok(aluno.get());
+        } 
             return ResponseEntity.notFound().build();
-        }
     }
+
+    @PutMapping ("/{id}") 
+    public ResponseEntity<Aluno> atualizar(
+        @PathVariable Integer id, @RequestBody Aluno novosDados) {
+        
+        Optional<Aluno> alunoAtualizado = alunoService.atualizar(id, novosDados);
+
+        if (alunoAtualizado.isPresent()) {
+            return ResponseEntity.ok(alunoAtualizado.get());
+        } 
+            return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping ("/{id}")
+    public ResponseEntity<Void> excluir(
+        @PathVariable Integer id) {
+
+            boolean excluido = alunoService.excluir(id);
+
+            if (excluido) {
+                return ResponseEntity.noContent().build();
+            } 
+                return ResponseEntity.notFound().build();
+
+
+        }
         
 }
