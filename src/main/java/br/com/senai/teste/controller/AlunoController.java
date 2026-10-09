@@ -17,7 +17,7 @@ import br.com.senai.teste.model.Aluno;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.lang.foreign.Linker.Option;
+
 import java.util.List;
 
 @RestController 
