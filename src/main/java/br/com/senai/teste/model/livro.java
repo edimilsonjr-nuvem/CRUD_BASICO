@@ -3,6 +3,8 @@ package br.com.senai.teste.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -14,8 +16,13 @@ public class livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "O titulo é obrigatório")
     private String titulo;
+
+    @NotBlank(message = "O Autor é obrigatório")
     private String autor;
+
+    @Min(value = 1, message = "O ano deve ser maior que zero")
     private String anoPublicacao;
 
     public livro() {

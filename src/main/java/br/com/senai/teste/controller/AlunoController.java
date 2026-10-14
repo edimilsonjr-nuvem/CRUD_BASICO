@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController 
 @RequestMapping("/alunos")
@@ -31,7 +32,7 @@ public class AlunoController {
     }
 
     @PostMapping 
-    public ResponseEntity<Aluno> cadastrar(@RequestBody Aluno aluno) {
+    public ResponseEntity<Aluno> cadastrar(@Valid @RequestBody Aluno aluno) {
         Aluno alunoCadastrado = alunoService.cadastrar(aluno);
         return ResponseEntity.status(HttpStatus.CREATED).body(alunoCadastrado);
     }
