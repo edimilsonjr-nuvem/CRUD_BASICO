@@ -10,7 +10,7 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 @Table(name = "livro")
-public class livro {
+public class Livro {
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,11 @@ public class livro {
     @Min(value = 1, message = "O ano deve ser maior que zero")
     private String anoPublicacao;
 
-    public livro() {
+    public Livro() {
 
     }
 
-    public livro(String titulo, String autor, String anoPublicacao) {
+    public Livro(String titulo, String autor, String anoPublicacao) {
         this.titulo = titulo;
         this.autor = autor;
         this.anoPublicacao = anoPublicacao;

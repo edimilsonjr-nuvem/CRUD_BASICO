@@ -48,7 +48,7 @@ public class AlunoController {
     public ResponseEntity<Aluno> buscarPorId(
         @PathVariable Integer id) {
         
-        Optional<Aluno> aluno = alunoService.buscarPorId(id.longValue());
+        Optional<Aluno> aluno = alunoService.buscarPorId(id.intValue());
 
         if (aluno.isPresent()) {
             return ResponseEntity.ok(aluno.get());

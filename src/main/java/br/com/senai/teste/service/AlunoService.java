@@ -24,14 +24,14 @@ public class AlunoService {
         return alunoRepository.findAll();
     }
 
-    public Optional<Aluno> buscarPorId(Long id) {
+    public Optional<Aluno> buscarPorId(Integer id) {
         return alunoRepository.findById(id);
     }
 
     public Optional<Aluno> atualizar(
         Integer id, Aluno novosDados) {
 
-        Optional<Aluno> alunoExistente = alunoRepository.findById(id.longValue());
+        Optional<Aluno> alunoExistente = alunoRepository.findById(id.intValue());
 
         if (alunoExistente.isEmpty()) {
             return Optional.empty();
@@ -47,11 +47,11 @@ public class AlunoService {
 
 public boolean excluir(Integer id) {
 
-    if (!alunoRepository.existsById(id.longValue())) {
+    if (!alunoRepository.existsById(id.intValue())) {
         return false;
     }
 
-    alunoRepository.deleteById(id.longValue());
+    alunoRepository.deleteById(id.intValue());
     return true;
 
 }

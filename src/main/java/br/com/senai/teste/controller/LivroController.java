@@ -13,10 +13,10 @@ import br.com.senai.teste.service.LivroService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
-import br.com.senai.teste.model.livro;
+import br.com.senai.teste.model.Livro;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import br.com.senai.teste.model.livro;
+import br.com.senai.teste.model.Livro;
 import jakarta.validation.Valid;
 
 
@@ -33,22 +33,22 @@ public class LivroController {
     }
 
     @PostMapping 
-    public ResponseEntity<livro> cadastrar(@Valid @RequestBody livro livro) {
-        livro livroCadastrado = livroService.cadastrar(livro);
+    public ResponseEntity<Livro> cadastrar(@Valid @RequestBody Livro livro) {
+        Livro livroCadastrado = livroService.cadastrar(livro);
         return ResponseEntity.status(HttpStatus.CREATED).body(livroCadastrado);
     }
 
     @GetMapping
-    public ResponseEntity<List<livro>> listar() {
-        List<livro> livros = livroService.listar();
+    public ResponseEntity<List<Livro>> listar() {
+        List<Livro> livros = livroService.listar();
         return ResponseEntity.ok(livros);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<livro> buscarPorId(
+    public ResponseEntity<Livro> buscarPorId(
         @PathVariable Integer id) {
         
-        Optional<livro> livro = livroService.buscarPorId(id.longValue());
+        Optional<Livro> livro = livroService.buscarPorId(id.intValue());
 
         if (livro.isPresent()) {
             return ResponseEntity.ok(livro.get());
@@ -57,10 +57,10 @@ public class LivroController {
     }
 
     @PutMapping ("/{id}") 
-    public ResponseEntity<livro> atualizar(
-        @PathVariable Integer id, @RequestBody livro novosDados) {
+    public ResponseEntity<Livro> atualizar(
+        @PathVariable Integer id, @RequestBody Livro novosDados) {
         
-        Optional<livro> livroAtualizado = livroService.atualizar(id, novosDados);
+        Optional<Livro> livroAtualizado = livroService.atualizar(id, novosDados);
 
         if (livroAtualizado.isPresent()) {
             return ResponseEntity.ok(livroAtualizado.get());

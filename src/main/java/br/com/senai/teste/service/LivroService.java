@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.List;
-import br.com.senai.teste.model.livro;
+import br.com.senai.teste.model.Livro;
 import br.com.senai.teste.repository.LivroRepository;
 
 @Service 
@@ -17,28 +17,28 @@ public class LivroService {
         this.LivroRepository = livroRepository;
     }
 
-    public livro cadastrar(livro livro) {
+    public Livro cadastrar(Livro livro) {
         return LivroRepository.save(livro);
     }
 
-    public List<livro> listar() {
+    public List<Livro> listar() {
         return LivroRepository.findAll();
     }
 
-    public Optional<livro> buscarPorId(Long id) {
+    public Optional<Livro> buscarPorId(Integer id) {
         return LivroRepository.findById(id);
     }
 
-    public Optional<livro> atualizar(
-        Integer id, livro novosDados) {
+    public Optional<Livro> atualizar(
+        Integer id, Livro novosDados) {
 
-        Optional<livro> livroExistente = LivroRepository.findById(id.longValue());
+        Optional<Livro> livroExistente = LivroRepository.findById(id.intValue());
 
         if (livroExistente.isEmpty()) {
             return Optional.empty();
         }
 
-        livro livro = livroExistente.get();
+        Livro livro = livroExistente.get();
 
         livro.setTitulo(novosDados.getTitulo());
         livro.setAutor(novosDados.getAutor());
@@ -49,11 +49,11 @@ public class LivroService {
 
 public boolean excluir(Integer id) {
 
-    if (!LivroRepository.existsById(id.longValue())) {
+    if (!LivroRepository.existsById(id.intValue())) {
         return false;
     }
 
-    LivroRepository.deleteById(id.longValue());
+    LivroRepository.deleteById(id.intValue());
     return true;
 
 }
