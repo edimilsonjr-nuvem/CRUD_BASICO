@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TesteController {
     @GetMapping("/teste")
     public String teste() {
-        return "me faz um pix de 200 reais";
+        return "me manda 300 reais";
     }
 }
