@@ -20,6 +20,7 @@ public class Emprestimo {
 
     private LocalDate dataEmprestimo;
     private LocalDate dataDevolucao;
+    private LocalDate dataPrevistaDevolucao;
 
     @ManyToOne 
     @JoinColumn(name = "aluno_id", nullable = false)
@@ -68,4 +69,13 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
+    public LocalDate getDataPrevistaDevolucao() {
+        return dataPrevistaDevolucao;
+    }
+
+    public void setDataPrevistaDevolucao(
+        LocalDate dataPrevistaDevolucao) {
+
+            this.dataPrevistaDevolucao = dataPrevistaDevolucao;
+        }
 }

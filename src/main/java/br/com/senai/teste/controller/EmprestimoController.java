@@ -1,8 +1,7 @@
 package br.com.senai.teste.controller;
 
 import java.util.Optional;
-
-
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +35,18 @@ public class EmprestimoController {
                 Integer alunoId = dados.getAlunoId();
                 Integer livroId = dados.getLivroId();
 
-                if (alunoId == null || livroId == null) {
+                LocalDate dataPrevistaDevolucao = dados.getdataPrevistaDevolucao();
+
+                if (alunoId == null 
+                    || livroId == null
+                    || dataPrevistaDevolucao == null) {
                     return ResponseEntity.badRequest().build();
                 }
 
                 Optional<Emprestimo> emprestimo = emprestimoService.cadastrar(
                     alunoId,
-                    livroId);
+                    livroId,
+                    dataPrevistaDevolucao);
 
                     if (emprestimo.isEmpty()) {
                         return ResponseEntity.notFound().build();

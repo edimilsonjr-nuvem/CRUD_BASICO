@@ -38,7 +38,9 @@ public class EmprestimoService {
         }
 
     public Optional<Emprestimo> cadastrar(
-        Integer alunoId, Integer livroId) {
+        Integer alunoId, 
+        Integer livroId,
+        LocalDate dataPrevistaDevolucao) {
 
             Optional<Aluno> aluno = alunoRepository.findById(alunoId);
             Optional<Livro> livro = livroRepository.findById(livroId);
@@ -60,6 +62,7 @@ public class EmprestimoService {
             emprestimo.setAluno(aluno.get());
             emprestimo.setLivro(livro.get());
             emprestimo.setDataEmprestimo(LocalDate.now());
+            emprestimo.setDataPrevistaDevolucao(dataPrevistaDevolucao);
 
             return Optional.of(emprestimoRepository.save(emprestimo));
         }
