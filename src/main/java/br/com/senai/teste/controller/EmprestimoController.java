@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.senai.teste.EmprestimoRequest;
+import br.com.senai.teste.dto.EmprestimoRequest;
 import br.com.senai.teste.model.Emprestimo;
 import br.com.senai.teste.service.EmprestimoService;
 
@@ -91,4 +91,22 @@ public class EmprestimoController {
 
             return ResponseEntity.ok(emprestimos);
         }
+
+        @GetMapping("/aluno/{alunoId}")
+        public ResponseEntity<List<Emprestimo>> listarPorAluno(
+            @PathVariable Integer alunoId) {
+
+                List<Emprestimo> emprestimos = emprestimoService.listarPorAluno(alunoId);
+
+                return ResponseEntity.ok(emprestimos);
+            }
+
+             @GetMapping("/livro/{livroId}")
+        public ResponseEntity<List<Emprestimo>> listarPorLivro(
+            @PathVariable Integer livroId) {
+
+                List<Emprestimo> emprestimos = emprestimoService.listarPorLivro(livroId);
+
+                return ResponseEntity.ok(emprestimos);
+            }
 }
