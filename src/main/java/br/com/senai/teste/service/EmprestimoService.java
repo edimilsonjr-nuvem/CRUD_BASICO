@@ -104,4 +104,10 @@ public class EmprestimoService {
          public List<Emprestimo> listarPorLivro(Integer livroId) {
             return emprestimoRepository.findByLivroId(livroId);
          }
+
+         public List<Emprestimo> listarAtrasados() {
+            return emprestimoRepository
+                    .findByDataPrevistaDevolucaoBeforeAndDataDevolucaoIsNull(
+                        LocalDate.now());
+         }
 }
