@@ -110,4 +110,31 @@ public class EmprestimoService {
                     .findByDataPrevistaDevolucaoBeforeAndDataDevolucaoIsNull(
                         LocalDate.now());
          }
+
+         public Optional<Emprestimo> renovar(Integer id, LocalDate novaDataPrevista) {
+            Optional<Emprestimo> emprestimoOpcional = emprestimoRepository.findById(id);
+
+            if (emprestimoOpcional.isEmpty()) {
+                return Optional.empty();
+            }
+
+            Emprestimo emprestimo = emprestimoOpcional.get();
+
+            if (emprestimo.getDataDevolucao() != null) {
+                throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Um empréstimo devolvido não pode ser renovado");
+            }
+
+            if (!novaDataPrevista.isAfter(emprestimo.getDataPrevistaDevolucao())) {
+                throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "A nova data deve ser posterior ao prazo atual");   
+            }
+
+            emprestimo.setDataPrevistaDevolucao(novaDataPrevista);
+            
+            return Optional.of(emprestimoRepository.save(emprestimo));
+}
+
 }

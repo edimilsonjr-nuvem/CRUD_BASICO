@@ -17,6 +17,7 @@ import br.com.senai.teste.dto.EmprestimoRequest;
 import br.com.senai.teste.model.Emprestimo;
 import br.com.senai.teste.service.EmprestimoService;
 import jakarta.validation.Valid;
+import br.com.senai.teste.dto.RenovacaoRequest;
 
 @RestController 
 @RequestMapping("/emprestimos")
@@ -122,4 +123,18 @@ public class EmprestimoController {
 
                 return ResponseEntity.ok(emprestimos);
             }
+
+            @PatchMapping("/{id}/renovacao")
+            public ResponseEntity<Emprestimo> renovar(
+                @PathVariable Integer id,
+                @Valid @RequestBody RenovacaoRequest dados) {
+
+                    Optional<Emprestimo> emprestimo = emprestimoService.renovar(id, dados.getNovaDataPrevista());
+
+                    if (emprestimo.isEmpty()) {
+                        return ResponseEntity.notFound().build();
+                    }
+
+                    return ResponseEntity.ok(emprestimo.get());
+                }
 }
